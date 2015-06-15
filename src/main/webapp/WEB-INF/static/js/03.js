@@ -7,6 +7,9 @@
 	
 		s.message = "Github Viewer!";
 		s.username = "angular";
+		s.repoOrder = "-stargazers_count"; //no haard coded in the html view... 
+		///now easy to change sort order by the user
+		
 		var url = "https://api.github.com/users/";
 		
 		var onRepos = function(response) {

@@ -28,7 +28,12 @@
 	</div>
 	
 	<br>
-	
+	order:
+	<select ng-model="repoOrder">
+		<option value="+name">Name</option>
+		<option value="-stargazers_count">staars</option>
+		<option value="+language">language</option>
+	</select>
 	<table>
 		<thead>
 			 <tr>
@@ -40,7 +45,8 @@
 			 
 		</thead>
 		<tbody>
-			<tr ng-repeat="repo in repos">
+			<tr ng-repeat="repo in repos | orderBy:repoOrder"> <!-- '-stargazers_count' 'kozott' repon beluli fieldet keres
+			nelkule olyan nevu propertit keres a scope-ban-->
 				<td>{{repo.name}}</td>
 				<td>{{repo.stargazers_count | number}}</td>
 				<td>{{repo.language}}</td>
