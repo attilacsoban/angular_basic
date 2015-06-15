@@ -35,7 +35,7 @@
 		};
 			
 		
-		s.search();
+//		s.search();
 	};
 	
 	myApp.controller("MainController",["$scope","$http",MainController]);

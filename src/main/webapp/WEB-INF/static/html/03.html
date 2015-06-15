@@ -8,7 +8,7 @@
 </head>
 <body ng-controller="MainController">
 	<h1>{{message}}</h1>
-	{{username}}
+	
 	<form name="searchUser" novalidate="novalidate" >
 		<input type="text" placeholder="username to find" ng-model="username" name="user" required >
 		<span style="color:red" ng-show="searchUser.user.$dirty && searchUser.user.$invalid">
@@ -20,40 +20,44 @@
 	
 	<br>
 	
-	<div>
+	<div ng-show="user">
 		<div>id: {{user.id}}</div>
 		<div>name: {{user.login}}</div>
 		<div>public repos: {{user.public_repos}}</div>
 		<img ng-src="{{user.avatar_url}}" title="Avatar" style="width: 100px;height: auto;"/>
-	</div>
+		<br>
 	
+	</div>
 	<br>
-	order:
-	<select ng-model="repoOrder">
-		<option value="+name">Name</option>
-		<option value="-stargazers_count">staars</option>
-		<option value="+language">language</option>
-	</select>
-	<table>
-		<thead>
-			 <tr>
-			 	<th>name</th>
-			 	<th>stars</th>
-			 	<th>language</th>
-			 	<th>owner id from owner object inside repos array:</th>
-			 </tr>
-			 
-		</thead>
-		<tbody>
-			<tr ng-repeat="repo in repos | orderBy:repoOrder"> <!-- '-stargazers_count' 'kozott' repon beluli fieldet keres
-			nelkule olyan nevu propertit keres a scope-ban-->
-				<td>{{repo.name}}</td>
-				<td>{{repo.stargazers_count | number}}</td>
-				<td>{{repo.language}}</td>
-				<td>{{repo.owner.id}}</td>
-			</tr>
-		</tbody>
-	</table>
+	<div ng-show="user.public_repos==0">No public repos found</div>
+	<div ng-show="user.public_repos>0">
+		 order:
+		<select ng-model="repoOrder">
+			<option value="+name">Name</option>
+			<option value="-stargazers_count">staars</option>
+			<option value="+language">language</option>
+		</select>
+		<table >
+			<thead>
+				 <tr>
+				 	<th>name</th>
+				 	<th>stars</th>
+				 	<th>language</th>
+				 	<th>owner id from owner object inside repos array:</th>
+				 </tr>
+				 
+			</thead>
+			<tbody>
+				<tr ng-repeat="repo in repos | orderBy:repoOrder"> <!-- '-stargazers_count' 'kozott' repon beluli fieldet keres
+				nelkule olyan nevu propertit keres a scope-ban-->
+					<td>{{repo.name}}</td>
+					<td>{{repo.stargazers_count | number}}</td>
+					<td>{{repo.language}}</td>
+					<td>{{repo.owner.id}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	
 	<br><br><br>
 	
