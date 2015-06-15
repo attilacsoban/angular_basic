@@ -40,3 +40,14 @@
 	worker.job2();
 
 }());
+
+
+
+
+var myApp = angular.module("myApp", []);
+myApp.controller("MainController", function($scope) {
+	$scope.message = "hello angular!!";
+});
+
+
+
