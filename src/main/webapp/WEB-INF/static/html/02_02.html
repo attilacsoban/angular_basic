@@ -8,5 +8,16 @@
 </head>
 <body ng-controller="MainController">
 	{{message}}
+	<div>
+		<div>id: {{user.id}}</div>
+		<div>name: {{user.login}}</div>
+		<div>public repos: {{user.public_repos}}</div>
+	</div>
+	<div ng-show="isError">
+		<div>errors:{{data}}</div>
+		<div>errors:{{status}}</div>
+		<div>errors:{{headers}}</div>
+		<div>errors:{{config}}</div>
+	</div>
 </body>
 </html>

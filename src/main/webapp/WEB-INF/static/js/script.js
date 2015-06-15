@@ -45,8 +45,27 @@
 
 
 var myApp = angular.module("myApp", []);
-myApp.controller("MainController", function($scope) {
+myApp.controller("MainController", function($scope,$http) {
+
 	$scope.message = "hello angular!!";
+	
+	var url = "https://api.github.com/users/attilacsoban";
+	
+	var onUserComplete = function(response) {
+		$scope.user = response;
+	};
+	
+	var onError = function(data,status,header,config) {
+		$scope.isError = true;
+		$scope.data = data;
+		$scope.status = status;
+		$scope.headers = header;
+		$scope.config = config;
+	};
+	//http.get will return a promise -> that will pass to response argument
+	//then second parameter : what to do when error occur
+	$http.get(url).success(onUserComplete).error(onError);
+	
 });
 
 
