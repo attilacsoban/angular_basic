@@ -5,34 +5,36 @@
 	
 	var MainController = function(s,h) {
 	
-		s.message = "hello angular!!";
-		s.clickMethod = function() {
-			count += 1;
-			console.log(count);
+		s.message = "Github Viewer!";
+		s.username = "angular";
+		var url = "https://api.github.com/users/";
+		
+		var onRepos = function(response) {
+			s.repos = response;
 		}
 		
-		var url = "https://api.github.com/users/attilacsoban";
-		
 		var onUserComplete = function(response) {
+			s.isError = false;
 			s.user = response;
+			h.get(s.user.repos_url).success(onRepos,onError);  
 		};
 		
-		var onError = function(data,status,header,config) {
-			s.isError = true;
+		var onError = function(data,status,header,config) {			
 			s.data = data;
 			s.status = status;
 			s.headers = header;
 			s.config = config;
+			s.isError = true;
 		};
-		//http.get will return a promise -> that will pass to response argument
-		//then second parameter : what to do when error occur
-		h.get(url).success(onUserComplete).error(onError);
 		
+		s.search = function() {
+			h.get(url+s.username).success(onUserComplete).error(onError);		
+		};
+			
+		
+		s.search();
 	};
-	//ha így hívom:[$scope,$http,MainController] 	akkor fenn hasznalhatok a var MainControll-nal n,h parametereket
-	//minifier eseten jo
+	
 	myApp.controller("MainController",["$scope","$http",MainController]);
-	
-	
 	
 }());
