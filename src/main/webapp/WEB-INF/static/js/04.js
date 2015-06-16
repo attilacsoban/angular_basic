@@ -3,12 +3,17 @@
 	var myApp = angular.module("githubViewer", []);
 	var count = 0;
 	
-	var MainController = function(s,h,i,l) {	
+	//location to modify the fragment in the url /*#{ada}
+	//location anchor ui related services
+	var MainController = function(s,h,i,l,anch,loc) {	
 		
 		var url = "https://api.github.com/users/";
 		
+		//after loading repos, scroll down to the details with $location and $anchorScroll service
 		var onRepos = function(response) {
 			s.repos = response;
+			loc.hash("userDetails");
+			anch();
 		}
 		
 		var onUserComplete = function(response) {
@@ -64,6 +69,6 @@
 		
 	};
 	
-	myApp.controller("MainController",["$scope","$http","$interval","$log",MainController]);
+	myApp.controller("MainController",["$scope","$http","$interval","$log","$anchorScroll","$location",MainController]);
 	
 }());

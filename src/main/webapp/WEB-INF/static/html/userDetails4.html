@@ -7,7 +7,7 @@
 <body>
 
 	<div ng-show="user.public_repos==0">No public repos found</div>
-	<div ng-show="user.public_repos>0">
+	<div id="userDetails" ng-show="user.public_repos>0">
 		order: <select ng-model="repoOrder">
 			<option value="+name">Name</option>
 			<option value="-stargazers_count">staars</option>
