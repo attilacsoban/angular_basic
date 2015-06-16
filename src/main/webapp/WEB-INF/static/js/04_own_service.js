@@ -5,7 +5,7 @@
 	
 	//location to modify the fragment in the url /*#{ada}
 	//location anchor ui related services
-	var MainController = function(s,h,i,l,anch,loc) {	
+	var MainController = function(s,h,i,l,anch,loc,git) {	
 		
 		var url = "https://api.github.com/users/";
 		
@@ -19,7 +19,8 @@
 		var onUserComplete = function(response) {
 			s.isError = false;
 			s.user = response;
-			h.get(s.user.repos_url).success(onRepos,onError);  
+			//h.get(s.user.repos_url).success(onRepos,onError);  
+			git.getRepos(s.user).success(onRepos,onError);
 		};
 		
 		var onError = function(data,status,header,config) {			
@@ -33,7 +34,9 @@
 		//via http protocol, and there i can put it ina  log file, and after investigate it
 		s.search = function() {
 			l.info("Searching for: "+s.username);
-			h.get(url+s.username).success(onUserComplete).error(onError);
+			git.valami();
+//			h.get(url+s.username).success(onUserComplete).error(onError);
+			git.getUser(s.username).success(onUserComplete,onError);
 			if(countDownInterval){
 				i.cancel(countDownInterval);
 				s.countdown = null;
@@ -69,6 +72,6 @@
 		
 	};
 	
-	myApp.controller("MainController",["$scope","$http","$interval","$log","$anchorScroll","$location",MainController]);
+	myApp.controller("MainController",["$scope","$http","$interval","$log","$anchorScroll","$location","github",MainController]);
 	
 }());

@@ -19,16 +19,21 @@
 			});
 		};		
 		
+		var valami = function() {
+			console.log("called through my special services");
+		}
+		
 		return {
 			getUser: getUser,
-			getRepos: getRepos			
+			getRepos: getRepos,
+			valami: valami
 		};
 	};
 	
 	var myApp = angular.module("githubViewer");
 	
 	//register the service with angular, so the other components can use it
-	module.service("github",github);
+	myApp.service("github",github);
 	
 	
 }());
