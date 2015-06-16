@@ -3,7 +3,7 @@
 	var myApp = angular.module("githubViewer", []);
 	var count = 0;
 	
-	var MainController = function(s,h,i) {	
+	var MainController = function(s,h,i,l) {	
 		
 		var url = "https://api.github.com/users/";
 		
@@ -24,9 +24,15 @@
 			s.config = config;
 			s.isError = true;
 		};
-		
+		// with $log i can rewrite the service and for example send back a log message back to the web service
+		//via http protocol, and there i can put it ina  log file, and after investigate it
 		s.search = function() {
-			h.get(url+s.username).success(onUserComplete).error(onError);		
+			l.info("Searching for: "+s.username);
+			h.get(url+s.username).success(onUserComplete).error(onError);
+			if(countDownInterval){
+				i.cancel(countDownInterval);
+				s.countdown = null;
+			}
 		};
 			
 		//counting donw than perform an automatic search
@@ -36,8 +42,11 @@
 		//2. if i use settimeout setinterval the data binding will not change correctly
 		//to use interval need to pass the service to the controller $interval = i
 		//interval 3th parameter is how many intervals i want
+		//invoke interval will give back an object, we can use that object to cancel later the execution
+		//after, when i do a search i will check if there is a counter, if yes, than stop it
+		var countDownInterval = null;
 		var startCountDown = function() {
-			i(decrementCountDown,1000,s.countdown);
+			countDownInterval = i(decrementCountDown,1000,s.countdown);
 		};
 		
 		var decrementCountDown = function() {
@@ -55,6 +64,6 @@
 		
 	};
 	
-	myApp.controller("MainController",["$scope","$http","$interval",MainController]);
+	myApp.controller("MainController",["$scope","$http","$interval","$log",MainController]);
 	
 }());
