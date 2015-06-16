@@ -8,7 +8,7 @@
 </head>
 <body ng-controller="MainController">
 	<h1>{{message}}</h1>
-	
+	<h4>{{countdown}}</h4>
 	<form name="searchUser" novalidate="novalidate" >
 		<input type="text" placeholder="username to find" ng-model="username" name="user" required >
 		<span style="color:red" ng-show="searchUser.user.$dirty && searchUser.user.$invalid">
