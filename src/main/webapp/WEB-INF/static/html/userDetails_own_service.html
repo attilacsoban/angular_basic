@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div ng-show="user.public_repos==0">No public repos found</div>
+	<div id="userDetails" ng-show="user.public_repos>0">
+		order: <select ng-model="repoOrder">
+			<option value="+name">Name</option>
+			<option value="-stargazers_count">staars</option>
+			<option value="+language">language</option>
+		</select>
+		<table>
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>stars</th>
+					<th>language</th>
+					<th>owner id from owner object inside repos array:</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr ng-repeat="repo in repos | orderBy:repoOrder">
+					<!-- '-stargazers_count' 'kozott' repon beluli fieldet keres
+				nelkule olyan nevu propertit keres a scope-ban-->
+					<td>{{repo.name}}</td>
+					<td>{{repo.stargazers_count | number}}</td>
+					<td>{{repo.language}}</td>
+					<td>{{repo.owner.id}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
