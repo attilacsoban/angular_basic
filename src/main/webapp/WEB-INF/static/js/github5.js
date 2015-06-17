@@ -17,7 +17,32 @@
 			return $http.get(user.repos_url).success(function(response) {
 				return response;
 			});
-		};		
+		};	
+		
+		var getRepo = function(username,reponame) {
+			return $http.get("https://api.github.com/repos/" + username + "/" + reponame).success(function(response) {
+				return response;
+			});
+		};
+		
+		var getContributors = function(username,reponame) {
+			return $http.get("https://api.github.com/repos/" + username + "/" + reponame+"/contributors").success(function(response) {
+				return response;
+			});
+		};
+		
+		var chainedPromises = function(username,reponame) {
+			var repo;
+			var repoUrl = "https://api.github.com/repos/" + username + "/" + reponame;
+			return $http.get(repoUrl).success(function(response) {
+				repo = response;
+				return $http.get(repoUrl+"/contributors").success(function(response) {
+					repo.contributors = response;
+					return repo;
+				});
+			});
+			
+		};
 		
 		var valami = function() {
 			console.log("called through my special services");
@@ -26,7 +51,10 @@
 		return {
 			getUser: getUser,
 			getRepos: getRepos,
-			valami: valami
+			valami: valami,
+			getRepo: getRepo,
+			getContributors: getContributors,
+			chainedPromises: chainedPromises
 		};
 	};
 	

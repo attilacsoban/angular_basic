@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 
 	<div>		
-		<h2>{{repo_name}}</h2>
-		<h4>created at: {{created_at}}</h4>
+		<h2>repo name: {{repo.name}}</h2>
+		<h3>open issue: {{repo.open_issues}}</h3>
+		<h4>created at: {{repo.created_at}}</h4>
 	</div>
 	<div>
 		collaborators:<br>
-		<table>
-			<tr ng-repeat="">
-				<td></td>
-				<td></td>
+		<table style="border:1px solid red">
+			<tr ng-repeat="cont in repo.contributors">
+				<td>{{cont.login}}</td>
+				<td>{{cont.id}}</td>
 			</tr>
 		</table>
 	</div>
-
-</body>
-</html>
