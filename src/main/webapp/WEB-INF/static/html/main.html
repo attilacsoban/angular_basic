@@ -1,0 +1,15 @@
+
+<div>
+	
+	<h4>{{countdown}}</h4> 
+
+	<form name="searchUser" novalidate="novalidate" >
+		<input type="text" placeholder="username to find" ng-model="username" name="user" required >
+		<span style="color:red" ng-show="searchUser.user.$dirty && searchUser.user.$invalid">
+			<span ng-show="searchUser.user.$error.required">Username is required.</span>
+		</span>
+		<input type="submit" value="search" ng-click="search()" ng-disabled="searchUser.user.$dirty && 
+		searchUser.user.$invalid" >
+	</form>
+	
+</div>

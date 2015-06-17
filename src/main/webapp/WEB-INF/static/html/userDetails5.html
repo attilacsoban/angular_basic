@@ -1,0 +1,39 @@
+	
+	<div ng-show="user">
+		{{error}}
+		<div>id: {{user.id}}</div>
+		<div>name: {{user.login}}</div>
+		<div>public repos: {{user.public_repos}}</div>
+		<img ng-src="{{user.avatar_url}}" title="Avatar" style="width: 100px;height: auto;"/>
+		<br>	
+	</div>
+
+	<div ng-show="user.public_repos==0">No public repos found</div>
+	<div ng-show="user.public_repos>0">
+		order: <select ng-model="repoOrder">
+			<option value="+name">Name</option>
+			<option value="-stargazers_count">staars</option>
+			<option value="+language">language</option>
+		</select>
+		<table>
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>stars</th>
+					<th>language</th>
+					<th>owner id from owner object inside repos array:</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr ng-repeat="repo in repos | orderBy:repoOrder">
+					<!-- '-stargazers_count' 'kozott' repon beluli fieldet keres
+				nelkule olyan nevu propertit keres a scope-ban-->
+					<td>{{repo.name}}</td>
+					<td>{{repo.stargazers_count | number}}</td>
+					<td>{{repo.language}}</td>
+					<td>{{repo.owner.id}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
