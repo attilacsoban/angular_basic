@@ -29,7 +29,7 @@
 				<tr ng-repeat="repo in repos | orderBy:repoOrder">
 					<!-- '-stargazers_count' 'kozott' repon beluli fieldet keres
 				nelkule olyan nevu propertit keres a scope-ban-->
-					<td>{{repo.name}}</td>
+					<td><a href="#/user/{{user.login}}/{{repo.name}}">{{repo.name}}</a></td>
 					<td>{{repo.stargazers_count | number}}</td>
 					<td>{{repo.language}}</td>
 					<td>{{repo.owner.id}}</td>

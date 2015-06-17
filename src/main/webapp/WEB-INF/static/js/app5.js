@@ -14,6 +14,11 @@
 			templateUrl: "userDetails5.html",
 			controller: "UserController"
 		})
+		//my solution for list repo details and collaborators
+		.when("/user/:username/:reponame", {
+			templateUrl: "repoDetail.html",
+			controller: "RepoController"
+		})
 		.otherwise({redirectTo: "/main"});
 		
 		
