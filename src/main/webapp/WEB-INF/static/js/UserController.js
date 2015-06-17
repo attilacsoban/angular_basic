@@ -4,6 +4,7 @@
 		
 	//now i need to get the parameter $routeParams itt will give me any param that is defined in the url
 	//it make aviable as a property what i can read
+	//route will make an entry in the browser history list
 	var UserController = function(s,git,route) {	
 		
 		var url = "https://api.github.com/users/";
